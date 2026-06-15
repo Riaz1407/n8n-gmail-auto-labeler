@@ -1,33 +1,64 @@
 # n8n Gmail Auto Labeler 📧🤖
 
+![n8n](https://img.shields.io/badge/n8n-Workflow-orange?style=for-the-badge\&logo=n8n)
+![Docker](https://img.shields.io/badge/Docker-Container-blue?style=for-the-badge\&logo=docker)
+![Gemini](https://img.shields.io/badge/Google-Gemini-green?style=for-the-badge\&logo=google)
+![Gmail](https://img.shields.io/badge/Gmail-API-red?style=for-the-badge\&logo=gmail)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+
+![GitHub stars](https://img.shields.io/github/stars/Riaz1407/n8n-gmail-auto-labeler?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/Riaz1407/n8n-gmail-auto-labeler?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Riaz1407/n8n-gmail-auto-labeler?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Riaz1407/n8n-gmail-auto-labeler?style=for-the-badge)
+
+---
+
+## 📌 Project Overview
+
 An AI-powered Gmail automation workflow built with **n8n** that automatically classifies incoming emails and applies Gmail labels using **Google Gemini AI**.
+
+The workflow continuously monitors Gmail inbox, analyzes incoming emails using Gemini AI, and automatically organizes them into predefined categories.
+
+---
 
 ## 🚀 Features
 
-* Automatically listens for new Gmail messages.
-* Uses **Google Gemini AI** to classify emails.
-* Automatically applies Gmail labels based on email content.
-* Categories supported:
+✅ Automatically listens for new Gmail messages
 
-  * 🎓 College
-  * 💼 Internship
-  * 📂 Others
-* Runs locally using Docker.
-* Can be deployed to cloud platforms like Railway.
+✅ Uses **Google Gemini AI** to classify emails
+
+✅ Automatically applies Gmail labels
+
+✅ Categories supported:
+
+* 🎓 College
+* 💼 Internship
+* 📂 Others
+
+✅ Runs locally using Docker
+
+✅ Persistent storage using Docker Volumes
+
+✅ Automatic restart after PC reboot
+
+✅ Background execution
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **n8n**
-* **Docker**
-* **Google Gemini API**
-* **Gmail API**
-* **GitHub**
+| Technology        | Purpose                 |
+| ----------------- | ----------------------- |
+| n8n               | Workflow Automation     |
+| Docker            | Containerization        |
+| Google Gemini API | AI Email Classification |
+| Gmail API         | Gmail Integration       |
+| GitHub            | Version Control         |
 
 ---
 
-## 📌 Workflow
+## 📌 Workflow Architecture
 
 ```text
 Gmail Trigger
@@ -47,22 +78,40 @@ Add Label  Add Label   Add Label
 
 ### Workflow Canvas
 
-Add your screenshot here:
+Add screenshot here:
 
 ```text
 screenshots/workflow.png
 ```
 
+---
+
 ### Docker Running
+
+Add screenshot here:
 
 ```text
 screenshots/docker-running.png
 ```
 
+---
+
 ### Successful Execution
+
+Add screenshot here:
 
 ```text
 screenshots/execution.png
+```
+
+---
+
+### Gmail Labels
+
+Add screenshot here:
+
+```text
+screenshots/gmail-labels.png
 ```
 
 ---
@@ -78,7 +127,8 @@ n8n-gmail-auto-labeler
 ├── screenshots
 │   ├── workflow.png
 │   ├── docker-running.png
-│   └── execution.png
+│   ├── execution.png
+│   └── gmail-labels.png
 │
 └── README.md
 ```
@@ -87,18 +137,17 @@ n8n-gmail-auto-labeler
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone the Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/Riaz1407/n8n-gmail-auto-labeler.git
+
 cd n8n-gmail-auto-labeler
 ```
 
 ---
 
-### 2. Install Docker
-
-Download and install Docker Desktop.
+### 2. Install Docker Desktop
 
 Verify installation:
 
@@ -108,36 +157,36 @@ docker --version
 
 ---
 
-### 3. Run n8n with Docker
-
-Create a volume:
+### 3. Create Docker Volume
 
 ```bash
 docker volume create n8n_data
 ```
 
-Run n8n:
+---
+
+### 4. Run n8n Using Docker
 
 ```bash
-docker run -d --restart unless-stopped \
---name n8n \
--p 5678:5678 \
--v n8n_data:/home/node/.n8n \
-docker.n8n.io/n8nio/n8n
+docker run -d --restart unless-stopped --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
 ```
 
-Open:
+---
+
+### 5. Open n8n
 
 ```text
 http://localhost:5678
 ```
 
+Create your n8n account.
+
 ---
 
-### 4. Import Workflow
+### 6. Import Workflow
 
-* Open n8n.
-* Click **Import from File**.
+* Open n8n
+* Click **Import from File**
 * Select:
 
 ```text
@@ -146,20 +195,25 @@ workflows/mail_auto_label.json
 
 ---
 
-### 5. Configure Credentials
+### 7. Configure Credentials
 
 Add:
 
-* Gmail OAuth Credentials
+* Gmail OAuth2 Credentials
 * Google Gemini API Key
 
 ---
 
-### 6. Activate Workflow
+### 8. Activate Workflow
 
 Enable the workflow.
 
-n8n will automatically monitor incoming emails and apply labels.
+The workflow will now:
+
+* Monitor Gmail inbox
+* Analyze emails using Gemini AI
+* Automatically classify emails
+* Apply Gmail labels
 
 ---
 
@@ -189,6 +243,7 @@ Emails related to:
 * Recruiters
 * Job opportunities
 * Career guidance
+* Career webinars
 
 ---
 
@@ -202,21 +257,22 @@ Any email that does not belong to College or Internship categories.
 
 This project is deployed locally using Docker.
 
-Benefits:
+### Benefits
 
-✅ Persistent workflow storage
-✅ Automatic restart after PC reboot
-✅ Background execution
-✅ Easy backup and migration
+* Persistent workflow storage
+* Automatic restart after PC reboot
+* Background execution
+* Easy backup and migration
+* No need to keep VS Code open
 
 ---
 
 ## 🚀 Live Demo
 
-This workflow is currently:
+Current Status:
 
 ```text
-Running locally on Docker
+✅ Running locally using Docker
 ```
 
 Local URL:
@@ -225,39 +281,56 @@ Local URL:
 http://localhost:5678
 ```
 
-*Note: Since the workflow is self-hosted, there is no public demo URL available.*
+> Note: Since this project is self-hosted on Docker, there is no public demo URL.
 
 ---
 
-## 🔮 Future Improvements
+## 📈 Future Improvements
 
-* Add Security email category.
-* Add Promotions category.
-* Add Telegram notifications.
-* Deploy workflow to Railway for 24/7 uptime.
-* Add email summarization using Gemini.
-* Add support for multiple Gmail accounts.
+* Add Security email category
+* Add Promotions category
+* Add Telegram notifications
+* Add Email Summarizer using Gemini
+* Deploy to Railway or VPS
+* Support multiple Gmail accounts
+* Add AI-generated email summaries
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome.
+Contributions, issues and feature requests are welcome.
 
-Feel free to fork this repository and submit a pull request.
+Feel free to:
+
+* Fork the repository
+* Create a new branch
+* Submit a Pull Request
+
+---
+
+## ⭐ Support
+
+If you found this project useful:
+
+* Star ⭐ this repository
+* Share it with others
+* Follow me on GitHub
 
 ---
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
 ---
 
 ## 👨‍💻 Author
 
-**Riaz Mohd**
+### Riaz Mohd
 
-GitHub: https://github.com/Riaz1407
+GitHub:
 
-Built with ❤️ using n8n, Docker, Gmail API and Google Gemini AI.
+https://github.com/Riaz1407
+
+Built with ❤️ using **n8n**, **Docker**, **Google Gemini AI**, and **Gmail API**.
