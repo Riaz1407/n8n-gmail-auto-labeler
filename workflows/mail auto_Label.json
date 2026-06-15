@@ -1,0 +1,224 @@
+{
+  "name": "mail auto_Label",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -320,
+        48
+      ],
+      "id": "2c188c5b-b535-4f1c-bfce-ddb9c69b3f6a",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6Qibum9kce2oB5uG",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": " Collage",
+              "description": "Emails related to college or university such as admissions, exams, assignments, results, notices, placements, internships offered by college, or academic updates."
+            },
+            {
+              "category": "Internship",
+              "description": "Emails related to internships, training programs, workshops, placements, recruiters, job opportunities, career guidance, webinars about careers, interview invitations, application status, internship offers, and professional development."
+            },
+            {
+              "category": "Others",
+              "description": "Any email that does not belong to the College or Internship categories, including newsletters, promotions, personal emails, account notifications, or miscellaneous messages."
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "Please classify the text provided by the user into one of the following categories: {categories}, and use the provided formatting instructions below. Don't explain, and only output the json."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        32
+      ],
+      "id": "2c55d53e-5428-4eaa-8d17-e704c94e22ec",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -144,
+        256
+      ],
+      "id": "51c7d81e-599e-49ad-83bc-f4dcdda608c2",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WfE1S5b6orVqFLXl",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_8558283288578821205"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        -144
+      ],
+      "id": "217bf50d-a975-4c8e-8fb2-8e7b0d9cf25a",
+      "name": "collage",
+      "webhookId": "c6a2c096-29ca-41c6-bd4b-2296e19f6f2d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6Qibum9kce2oB5uG",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_5601968229452318068"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        48
+      ],
+      "id": "1abd7bb4-2da4-4037-972d-a0a6decd6c0e",
+      "name": "Internship",
+      "webhookId": "b37c8405-ba6e-41cc-b50e-f6f0b3761cf5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6Qibum9kce2oB5uG",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_3556964530975298724"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        240
+      ],
+      "id": "d85706ef-4519-4669-9a9f-e37809b4faf7",
+      "name": "Others",
+      "webhookId": "c7207a8a-26b5-4473-9ba8-85ad84f1a5df",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6Qibum9kce2oB5uG",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "collage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Internship",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Others",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "48a25c89-5186-445b-b70b-c9cefaab6287",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "029d0dd945dbaebed6e7ceb61f87a720bf5075a0a3171db5cb39acc2357ca832"
+  },
+  "nodeGroups": [],
+  "id": "bx0J2qLNm43yZPeY",
+  "tags": [
+    {
+      "name": "gmail",
+      "id": "nDS1bB8b3BmEMjSx",
+      "updatedAt": "2026-06-15T17:24:19.069Z",
+      "createdAt": "2026-06-15T17:24:19.069Z"
+    }
+  ]
+}
