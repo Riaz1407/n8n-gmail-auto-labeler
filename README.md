@@ -12,13 +12,15 @@ An AI-powered Gmail automation workflow built with **n8n** that automatically cl
   * 🎓 College
   * 💼 Internship
   * 📂 Others
-* Runs locally or can be deployed to cloud platforms like Railway.
+* Runs locally using Docker.
+* Can be deployed to cloud platforms like Railway.
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **n8n**
+* **Docker**
 * **Google Gemini API**
 * **Gmail API**
 * **GitHub**
@@ -41,6 +43,30 @@ Add Label  Add Label   Add Label
 
 ---
 
+## 📸 Screenshots
+
+### Workflow Canvas
+
+Add your screenshot here:
+
+```text
+screenshots/workflow.png
+```
+
+### Docker Running
+
+```text
+screenshots/docker-running.png
+```
+
+### Successful Execution
+
+```text
+screenshots/execution.png
+```
+
+---
+
 ## 📁 Repository Structure
 
 ```text
@@ -50,7 +76,9 @@ n8n-gmail-auto-labeler
 │   └── mail_auto_label.json
 │
 ├── screenshots
-│   └── workflow.png
+│   ├── workflow.png
+│   ├── docker-running.png
+│   └── execution.png
 │
 └── README.md
 ```
@@ -63,9 +91,50 @@ n8n-gmail-auto-labeler
 
 ```bash
 git clone https://github.com/Riaz1407/n8n-gmail-auto-labeler.git
+cd n8n-gmail-auto-labeler
 ```
 
-### 2. Import Workflow
+---
+
+### 2. Install Docker
+
+Download and install Docker Desktop.
+
+Verify installation:
+
+```bash
+docker --version
+```
+
+---
+
+### 3. Run n8n with Docker
+
+Create a volume:
+
+```bash
+docker volume create n8n_data
+```
+
+Run n8n:
+
+```bash
+docker run -d --restart unless-stopped \
+--name n8n \
+-p 5678:5678 \
+-v n8n_data:/home/node/.n8n \
+docker.n8n.io/n8nio/n8n
+```
+
+Open:
+
+```text
+http://localhost:5678
+```
+
+---
+
+### 4. Import Workflow
 
 * Open n8n.
 * Click **Import from File**.
@@ -75,22 +144,28 @@ git clone https://github.com/Riaz1407/n8n-gmail-auto-labeler.git
 workflows/mail_auto_label.json
 ```
 
-### 3. Configure Credentials
+---
+
+### 5. Configure Credentials
 
 Add:
 
 * Gmail OAuth Credentials
 * Google Gemini API Key
 
-### 4. Activate Workflow
+---
 
-Enable the workflow and n8n will start automatically labeling incoming emails.
+### 6. Activate Workflow
+
+Enable the workflow.
+
+n8n will automatically monitor incoming emails and apply labels.
 
 ---
 
 ## 🧠 Email Categories
 
-### College
+### 🎓 College
 
 Emails related to:
 
@@ -100,8 +175,11 @@ Emails related to:
 * Notices
 * Academic events
 * Placements
+* University announcements
 
-### Internship
+---
+
+### 💼 Internship
 
 Emails related to:
 
@@ -112,9 +190,42 @@ Emails related to:
 * Job opportunities
 * Career guidance
 
-### Others
+---
+
+### 📂 Others
 
 Any email that does not belong to College or Internship categories.
+
+---
+
+## 🐳 Docker Deployment
+
+This project is deployed locally using Docker.
+
+Benefits:
+
+✅ Persistent workflow storage
+✅ Automatic restart after PC reboot
+✅ Background execution
+✅ Easy backup and migration
+
+---
+
+## 🚀 Live Demo
+
+This workflow is currently:
+
+```text
+Running locally on Docker
+```
+
+Local URL:
+
+```text
+http://localhost:5678
+```
+
+*Note: Since the workflow is self-hosted, there is no public demo URL available.*
 
 ---
 
@@ -125,6 +236,21 @@ Any email that does not belong to College or Internship categories.
 * Add Telegram notifications.
 * Deploy workflow to Railway for 24/7 uptime.
 * Add email summarization using Gemini.
+* Add support for multiple Gmail accounts.
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome.
+
+Feel free to fork this repository and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
 
 ---
 
@@ -133,3 +259,5 @@ Any email that does not belong to College or Internship categories.
 **Riaz Mohd**
 
 GitHub: https://github.com/Riaz1407
+
+Built with ❤️ using n8n, Docker, Gmail API and Google Gemini AI.
