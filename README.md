@@ -1,15 +1,13 @@
 # n8n Gmail Auto Labeler 📧🤖
 
 ## Workflow
-![Workflow](screenshots/workflow.png)
+![Workflow](screenshot.png)
 
 ## Successful Execution
 
-![Execution](screenshots/execution.png)
+![Execution](workflow execution screenshot.png)
 
-## Gmail Labels
 
-![Labels](screenshots/gmail-labels.png)
 
 ![n8n](https://img.shields.io/badge/n8n-Workflow-orange?style=for-the-badge\&logo=n8n)
 ![Docker](https://img.shields.io/badge/Docker-Container-blue?style=for-the-badge\&logo=docker)
